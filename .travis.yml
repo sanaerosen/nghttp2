@@ -3,6 +3,8 @@ compiler:
   - clang
 #Disable gcc build for the moment...
 #  - gcc
+go:
+  - 1.4
 before_install:
   - $CC --version
   - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
@@ -27,6 +29,9 @@ before_install:
       libjemalloc-dev
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
   - $CC --version
+  - go get -v github.com/bradfitz/http2
+  - go get -v github.com/tatsuhiro-t/go-nghttp2
+  - go get -v golang.org/x/net/spdy
 before_script:
   - autoreconf -i
   - automake
@@ -35,3 +40,5 @@ before_script:
 script:
   - make
   - make check
+  - cd integration-tests
+  - make it
