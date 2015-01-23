@@ -29,9 +29,7 @@ before_install:
       libjemalloc-dev
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
   - $CC --version
-  - go get -d -v github.com/bradfitz/http2
-  - go get -d -v github.com/tatsuhiro-t/go-nghttp2
-  - go get -d -v golang.org/x/net/spdy
+  - go version
 before_script:
   - autoreconf -i
   - automake
@@ -41,4 +39,5 @@ script:
   - make
   - make check
   - cd integration-tests
-  - make it || (cat log.txt; exit 2)
+  - make itprep
+  - make it
