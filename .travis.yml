@@ -41,4 +41,4 @@ script:
   - make
   - make check
   - cd integration-tests
-  - make it
+  - make it || (cat log.txt; exit 2)
