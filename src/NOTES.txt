@@ -1,0 +1,112 @@
+
+app_helper.cc
+    Apparently stuff for debugging
+
+deflatedh.cc
+    Converting the binary format to json and otherwise parsing it
+
+**h2load.cc
+    A large bulk of the work seems to happen here
+
+** h2load_http2_session.cc
+h2load_spdy_session.cc
+    Actual implementation of all the callbacks and so on from earlier
+
+HtmlParser.cc
+    What it says on the box
+
+*** http2.cc
+    MOST IMPORTANT FILE
+    PARSES HEADERS FOR PRELOADING HERE
+
+**  HttpServer.cc
+    What it says on the box
+    Also seems rather relevant
+
+util.cc
+
+==============  nghttpx =============
+I think we can mostly ignore upstream stuff
+
+*** shrpx.cc:
+    I think this is what creates nghttpx
+
+*** shrpx_downstream.cc
+    Actually handles higher-level connection detail
+    CALLS HTTP2.CC!
+
+*** shrpx_downstream_connection.cc
+    Also seems relevant but a bit low-level.
+    Does some header rewriting though
+
+*** shrpx_http2_session.cc
+
+
+shrpx_accept_handler.cc
+    Not much to it
+shrpx_client_handler.cc
+    Also doesn't seem super-relevant
+shrpx_config.cc
+    Just for parsing the config file, also not very relevant
+shrpx_connect_blocker.cc
+shrpx_downlstream_connection.cc
+    almost empty, not really relevant
+shrpx_connection.cc
+shrpx_connection_handler.cc
+    fairly low level
+
+shrpx_http.cc
+    for dealing with http1
+
+==================  Irrelevant program code =============
+
+inflatehd.cc
+    This is a program, not realy relevant
+nghttp.cc
+    The client program
+nghttpd.cc
+    The server program
+
+
+=================== ASIO stuff ========
+
+Not really relevant, this is apparently a low-level asynchronous I/O library thing
+
+asio_client_request.cc
+asio_client_request_impl.cc
+asio_client_response.cc
+asio_client_response_impl.cc
+    Mostly a bunch of callbacks not really interesting
+
+asio_client_session_impl.cc
+    Implementation of a client session
+    Probably not relevant to us?
+
+.
+.
+.
+
+asio_server.cc
+    Mostly just tcp-level accepts etc
+
+asio_server_http2.cc
+    Mostly delegates to _impl
+
+** asio_server_http2_handler.cc
+    Seems relevant, parses headers and so on
+
+asio_server_http2_impl.cc
+asio_server_request.cc
+asio_server_request_impl.cc
+    not really relevant
+
+*** asio_server_request_handler.cc
+    Deals with redirects and status codes.
+    Potentially  decent place to put our stuff?
+
+asio_server_response_impl.cc
+    Mostly low-level 
+
+asio_server_serve_mux.cc
+    appears to deal with handling paths
+
